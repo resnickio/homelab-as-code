@@ -1,3 +1,6 @@
+### Custom Terraform ###
+*.lock.hcl
+
 # Created by https://www.toptal.com/developers/gitignore/api/terraform,ansible,packer,python,powershell,linux,macos,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=terraform,ansible,packer,python,powershell,linux,macos,windows
 
