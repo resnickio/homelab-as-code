@@ -70,18 +70,25 @@ resource "unifi_network" "rsdg-103-esxi-vsan" {
   dhcp_stop    = "10.0.1.94"
 }
 
-# Virtualization Port Group
-
-resource "unifi_port_profile" "virtualization" {
-  name = "rsdg-virtualization"
-
-  native_networkconf_id = unifi_network.rsdg-101-esxi-management.id
-  poe_mode              = "off"
-  lldpmed_enabled       = "false"
-}
-
 # ESXi Hosts
 
+# Dell R740
+# resource "unifi_user" "esxi01" {
+#   mac  = "B8:CA:3A:60:B4:14"
+#   name = "esxi01"
+
+#   fixed_ip = "10.0.1.11"
+# }
+
+# Dell Precision 7820
+# resource "unifi_user" "esxi02" {
+#   mac  = "B8:CA:3A:60:B4:14"
+#   name = "esxi02"
+
+#   fixed_ip = "10.0.1.12"
+# }
+
+# Dell R720
 resource "unifi_user" "esxi00" {
   mac  = "B8:CA:3A:60:B4:14"
   name = "esxi00"
@@ -89,13 +96,14 @@ resource "unifi_user" "esxi00" {
   fixed_ip = "10.0.1.29"
 }
 
+
 # RSDG Console Network
 
 resource "unifi_network" "rsdg-104-console" {
   name    = "rsdg-104-console"
   purpose = "corporate"
 
-  subnet  = "10.0.1.96/29"
+  subnet  = "10.0.1.96/28"
   vlan_id = 104
 
   intra_network_access_enabled = true
@@ -104,10 +112,29 @@ resource "unifi_network" "rsdg-104-console" {
   multicast_dns                = false
   
   dhcp_enabled = true
-  dhcp_start   = "10.0.1.97"
-  dhcp_stop    = "10.0.1.102"
+  dhcp_start   = "10.0.1.98"
+  dhcp_stop    = "10.0.1.110"
 }
 
+# Console Hosts
+
+# Dell R740 iDRAC
+# resource "unifi_user" "esxi01-console" {
+#   mac  = ""
+#   name = "esxi01"
+
+#   fixed_ip = "10.0.1.98"
+# }
+
+# Dell Precision 7820 LOM
+resource "unifi_user" "esxi02-console" {
+  mac  = "A4:BB:6D:9f:42:0C"
+  name = "esxi02-console"
+
+  fixed_ip = "10.0.1.99"
+}
+
+# Dell R720 iDRAC
 resource "unifi_user" "esxi00-console" {
   mac  = "5C:F9:DD:F2:9C:B2"
   name = "esxi00-console"
