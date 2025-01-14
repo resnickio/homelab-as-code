@@ -1,4 +1,18 @@
 ##################################################################################
+# DATA
+##################################################################################
+
+data "vsphere_host_thumbprint" "esxi00" {
+  address  = "esxi00.ad.rsdg.io"
+  insecure = true
+}
+
+data "vsphere_host_thumbprint" "esxi02" {
+  address  = "esxi02.ad.rsdg.io"
+  insecure = true
+}
+
+##################################################################################
 # RESOURCES
 ##################################################################################
 
@@ -57,7 +71,23 @@ resource "unifi_network" "rsdg-103-esxi-vsan" {
 
 # ESXi Hosts
 
-# Dell R740
+# ESXi00 Dell R720
+module "esxi00" {
+  source = "./../modules/esxi_host"
+
+  fqdn        = "esxi00.ad.rsdg.io"
+  insecure    = true
+  datacenter  = "Ardenlee"
+  mac_address = "B8:CA:3A:60:B4:14"
+  ip_address  = "10.0.1.29"
+
+  esxi_username = "root"
+  esxi_password = var.vsphere_password
+  
+  ntp_servers = ["ntp.rsdg.io"]
+}
+
+# ESXi01 - Dell R740
 # resource "unifi_user" "esxi01" {
 #   mac  = "B8:CA:3A:60:B4:14"
 #   name = "esxi01"
@@ -65,18 +95,18 @@ resource "unifi_network" "rsdg-103-esxi-vsan" {
 #   fixed_ip = "10.0.1.11"
 # }
 
-# Dell Precision 7820
-resource "unifi_user" "esxi02" {
-  mac  = "A4:BB:6D:9f:42:0C"
-  name = "esxi02.ad.rsdg.io"
+# ESXi02 - Dell Precision 7820
+module "esxi02" {
+  source = "./../modules/esxi_host"
 
-  fixed_ip = "10.0.1.12"
-}
+  fqdn        = "esxi02.ad.rsdg.io"
+  insecure    = true
+  datacenter  = "Ardenlee"
+  mac_address = "A4:BB:6D:9f:42:0C"
+  ip_address  = "10.0.1.12"
 
-# Dell R720
-resource "unifi_user" "esxi00" {
-  mac  = "B8:CA:3A:60:B4:14"
-  name = "esxi00.ad.rsdg.io"
-
-  fixed_ip = "10.0.1.29"
+  esxi_username = "root"
+  esxi_password = var.vsphere_password
+  
+  ntp_servers = ["ntp.rsdg.io"]
 }

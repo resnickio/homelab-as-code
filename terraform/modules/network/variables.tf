@@ -16,3 +16,4 @@ variable "vlan_id" {
   type        = number
   description = "The VLAN ID for the new network."
 }
+
