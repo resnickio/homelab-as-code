@@ -81,17 +81,17 @@ resource "unifi_network" "rsdg-103-esxi-vsan" {
 # }
 
 # Dell Precision 7820
-# resource "unifi_user" "esxi02" {
-#   mac  = "B8:CA:3A:60:B4:14"
-#   name = "esxi02"
+resource "unifi_user" "esxi02" {
+  mac  = "A4:BB:6D:9f:42:0C"
+  name = "esxi02.ad.rsdg.io"
 
-#   fixed_ip = "10.0.1.12"
-# }
+  fixed_ip = "10.0.1.12"
+}
 
 # Dell R720
 resource "unifi_user" "esxi00" {
   mac  = "B8:CA:3A:60:B4:14"
-  name = "esxi00"
+  name = "esxi00.ad.rsdg.io"
 
   fixed_ip = "10.0.1.29"
 }
@@ -125,14 +125,6 @@ resource "unifi_network" "rsdg-104-console" {
 
 #   fixed_ip = "10.0.1.98"
 # }
-
-# Dell Precision 7820 LOM
-resource "unifi_user" "esxi02-console" {
-  mac  = "A4:BB:6D:9f:42:0C"
-  name = "esxi02-console"
-
-  fixed_ip = "10.0.1.99"
-}
 
 # Dell R720 iDRAC
 resource "unifi_user" "esxi00-console" {
